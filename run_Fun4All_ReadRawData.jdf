@@ -1,0 +1,25 @@
+Universe     = vanilla
+Notification = Never
+
+### to be updated to actual running directory
+Initialdir   = /sphenix/data/data02/sphnxpro/tpc/hpereira/tutorial_2023_06_29
+Executable   = /sphenix/data/data02/sphnxpro/tpc/hpereira/tutorial_2023_06_29/run_Fun4All_ReadRawData.sh
+
+Log = log_ReadRawData_$(Process).txt
+Output = output_ReadRawData_$(Process).txt
+Error = error_ReadRawData_$(Process).txt
+GetEnv = True
+request_memory = 16GB
+
+#### HV resist scan, field off
+#### arguments are: <number of events> <run number> <run type>
+#### one can add as many runs as necessary here. They will be processed in parallel
+
+### first run
+Arguments = 1000 9443 junk
+Queue 1
+
+### second run
+Arguments = 1000 9444 junk
+Queue 1
+

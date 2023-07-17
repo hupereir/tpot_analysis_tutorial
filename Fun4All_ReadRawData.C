@@ -28,9 +28,9 @@ R__LOAD_LIBRARY(libmicromegas.so)
 
 //____________________________________________________________________
 int Fun4All_ReadRawData(
-  int nEvents = 1000,
-  const char* inputFile = "/sphenix/lustre01/sphnxpro/commissioning/TPOT/junk/TPOT_ebdc39_junk-00009443-0000.prdf",
-  const char* evaluationFile = "MicromegasRawDataEvaluation-00009443-0000.root"
+  int nEvents = 100,
+  const char* inputFile = "/sphenix/lustre01/sphnxpro/commissioning/TPOT/beam/TPOT_ebdc39_beam-00020445-0000.prdf",
+  const char* evaluationFile = "MicromegasRawDataEvaluation-00020445-0000.root"
   )
 {
   // print inputs

@@ -251,7 +251,21 @@ void MBD_Correlation(const int runnumber = 20445)
     bool corrected = false;
     while( tpot_time > mbd_time + 1000 && mbd_entry<mbd_entries )
     {
-      
+      /* 
+       * check time difference is not due to incorrect rollover count
+       * this is tricky because of the +/- 1 offsets of the TPOT BCO 
+       */
+      const int round = std::round( double(tpot_time - mbd_time)/ mbd_max_clk );
+      if( std::abs<int64_t>( int64_t(tpot_time) - mbd_time - round*mbd_max_clk) < 5 )
+      {
+        std::cout << "MBD_Correlation -"
+          << " rollover corrected difference: " << int64_t(tpot_time) - mbd_time - round*mbd_max_clk
+          << " n_Rollover: " << (tpot_time - mbd_time)/mbd_max_clk
+          << std::endl;
+        mbd_noverflow += round;
+        break;
+      }
+
       corrected = true;
       ++mbd_entry;
       mbd_tree->GetEntry( mbd_entry );

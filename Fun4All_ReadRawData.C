@@ -10,10 +10,10 @@
 
 #include <micromegas/MicromegasRawDataDecoder.h>
 #include <micromegas/MicromegasRawDataCalibration.h>
+#include <micromegas/MicromegasRawDataEvaluation.h>
 
 // local macros
 #include <G4Setup_sPHENIX.C>
-#include <G4_Bbc.C>
 #include <G4_Global.C>
 
 #include <Trkr_RecoInit.C>
@@ -25,12 +25,16 @@ R__LOAD_LIBRARY(libfun4allraw.so)
 R__LOAD_LIBRARY(libqa_modules.so)
 
 R__LOAD_LIBRARY(libmicromegas.so)
+R__LOAD_LIBRARY(libTrackingDiagnostics.so)
 
 //____________________________________________________________________
 int Fun4All_ReadRawData(
-  int nEvents = 100,
-  const char* inputFile = "/sphenix/lustre01/sphnxpro/commissioning/TPOT/beam/TPOT_ebdc39_beam-00020445-0000.prdf",
-  const char* evaluationFile = "MicromegasRawDataEvaluation-00020445-0000.root"
+  int nEvents = 500,
+  const char* inputFile = "/sphenix/lustre01/sphnxpro/commissioning/TPOT/junk/TPOT_ebdc39_junk-00029863-0000.evt",
+  const char* evaluationFile = "MicromegasRawDataEvaluation-00029863-0000.root"
+
+//   const char* inputFile = "/sphenix/lustre01/sphnxpro/commissioning/TPOT/cosmics/TPOT_ebdc39_cosmics-00025475-0000.evt",
+//   const char* evaluationFile = "MicromegasRawDataEvaluation-00025475-0000.root"
   )
 {
   // print inputs
@@ -40,7 +44,7 @@ int Fun4All_ReadRawData(
 
   // options
   Enable::PIPE = true;
-  Enable::BBC = true;
+  Enable::MBD = true;
   Enable::MAGNET = true;
   Enable::PLUGDOOR = false;
 
@@ -69,9 +73,9 @@ int Fun4All_ReadRawData(
 
   // Geant4 initialization
   G4Init();
-      
+
   if( true )
-  {  
+  {
     // raw data evaluation
     auto micromegasRawDataEvaluation = new MicromegasRawDataEvaluation;
     // micromegasRawDataEvaluation->Verbosity(1);
@@ -83,7 +87,7 @@ int Fun4All_ReadRawData(
   auto in = new Fun4AllPrdfInputManager;
   in->fileopen(inputFile);
   se->registerInputManager(in);
-  
+
   // process events
   se->run(nEvents);
 

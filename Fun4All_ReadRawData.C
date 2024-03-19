@@ -32,9 +32,6 @@ int Fun4All_ReadRawData(
   int nEvents = 500,
   const char* inputFile = "/sphenix/lustre01/sphnxpro/commissioning/TPOT/junk/TPOT_ebdc39_junk-00029863-0000.evt",
   const char* evaluationFile = "MicromegasRawDataEvaluation-00029863-0000.root"
-
-//   const char* inputFile = "/sphenix/lustre01/sphnxpro/commissioning/TPOT/cosmics/TPOT_ebdc39_cosmics-00025475-0000.evt",
-//   const char* evaluationFile = "MicromegasRawDataEvaluation-00025475-0000.root"
   )
 {
   // print inputs
@@ -78,7 +75,7 @@ int Fun4All_ReadRawData(
   {
     // raw data evaluation
     auto micromegasRawDataEvaluation = new MicromegasRawDataEvaluation;
-    // micromegasRawDataEvaluation->Verbosity(1);
+    micromegasRawDataEvaluation->Verbosity(1);
     micromegasRawDataEvaluation->set_evaluation_outputfile(evaluationFile);
     se->registerSubsystem( micromegasRawDataEvaluation );
   }

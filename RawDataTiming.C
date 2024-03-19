@@ -12,16 +12,16 @@ R__LOAD_LIBRARY(libmicromegas.so)
 namespace
 {
   // small class to easily save multple pages pdf
-  
+
   class PdfDocument
   {
-    
+
     public:
-    
+
     //* constructor
-    PdfDocument( TString filename ): m_filename( filename ) 
-    {}    
-    
+    PdfDocument( TString filename ): m_filename( filename )
+    {}
+
     //* destructor
     ~PdfDocument()
     {
@@ -29,37 +29,37 @@ namespace
       // we save a new empty canvas at the end of the pdf file so that it is properly closed
       TCanvas().SaveAs( Form( "%s)", m_filename.Data() ) );
     }
-    
+
     //* add pad
     void Add( TVirtualPad* pad )
     {
       if( m_filename.IsNull() ) return;
       if( m_first )
-      {        
+      {
         pad->SaveAs( Form( "%s(", m_filename.Data() ) );
         m_first = false;
       } else {
         pad->SaveAs( Form( "%s", m_filename.Data() ) );
       }
     }
-    
+
     private:
-    
+
     //* filename
     TString m_filename;
-    
+
     //* true if first page
     Bool_t m_first = true;
-    
+
     //* root dictionary
     ClassDef( PdfDocument, 0 );
-    
+
   };
-  
+
 }
 
 //_____________________________________________________________________________
-TString RawDataTiming( int runNumber = 9443 )
+TString RawDataTiming( int runNumber = 29863 )
 {
 
   MicromegasMapping mapping;
@@ -74,12 +74,12 @@ TString RawDataTiming( int runNumber = 9443 )
 
   // open TFile
   auto f = TFile::Open( inputFile );
-  if( !f ) 
+  if( !f )
   {
     std::cout << "RawDataTiming - could not open " << inputFile << std::endl;
     return TString();
   }
-  
+
   // get tree
   auto tree = dynamic_cast<TTree*>(f->Get("T"));
 
@@ -91,19 +91,19 @@ TString RawDataTiming( int runNumber = 9443 )
   h3d->GetXaxis()->SetTitle( "region_id" );
   h3d->GetYaxis()->SetTitle( "sample" );
   h3d->GetZaxis()->SetTitle( "adc" );
-  
+
   // project
-  tree->Project( h3d->GetName(), var3d, TCut() );  
+  tree->Project( h3d->GetName(), var3d, TCut() );
   std::cout << "projection done." << std::endl;
-  
+
   // loop over layers, tiles and region
   for( int ilayer = 0; ilayer <2; ++ilayer )
   {
-    
+
     // get actual layer and segmentation
     const int layer = 55+ilayer;
     const auto segmentation = (layer==55) ? MicromegasDefs::SegmentationType::SEGMENTATION_PHI : MicromegasDefs::SegmentationType::SEGMENTATION_Z;
-    
+
     for( int itile = 0; itile <8; ++itile )
     {
       // generate hitset key from layer, tile and segmentation. This allows to retrieve the detector name from the Mapping
@@ -126,7 +126,7 @@ TString RawDataTiming( int runNumber = 9443 )
         // get the bin matching layer, tile and region in the 3D histgoram
         const int bin = iregion + 4*(itile + 8*ilayer );
         h3d->GetXaxis()->SetRange( bin+1, bin+1 );
-        
+
         // get the corresponding 2D histogram (adc vs sample)
         auto h2d = static_cast<TH2*>( h3d->Project3D( "zy" ) );
         h2d->SetName( hname );

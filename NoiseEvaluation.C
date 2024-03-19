@@ -181,8 +181,6 @@ void NoiseEvaluation(
   int runNumber = 29863
 )
 {
-
-  set_style( false );
   gStyle->SetOptStat(0);
 
   const TString inputFile = Form( "MicromegasRawDataEvaluation-%08i-0000.root", runNumber );

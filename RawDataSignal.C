@@ -52,7 +52,7 @@ namespace
 
 //_____________________________________________________________________________
 // TString RawDataSignal(int runNumber = 29863)
-TString RawDataSignal(int runNumber = 25475)
+TString RawDataSignal(int runNumber = 34567)
 {
 
   MicromegasMapping mapping;

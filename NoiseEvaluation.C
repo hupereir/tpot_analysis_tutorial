@@ -178,7 +178,7 @@ namespace
 
 //_____________________________________________________________________________
 void NoiseEvaluation(
-  int runNumber = 29863
+  int runNumber = 34567
 )
 {
   gStyle->SetOptStat(0);

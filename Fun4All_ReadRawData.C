@@ -30,8 +30,8 @@ R__LOAD_LIBRARY(libTrackingDiagnostics.so)
 //____________________________________________________________________
 int Fun4All_ReadRawData(
   int nEvents = 500,
-  const char* inputFile = "/sphenix/lustre01/sphnxpro/commissioning/TPOT/junk/TPOT_ebdc39_junk-00029863-0000.evt",
-  const char* evaluationFile = "MicromegasRawDataEvaluation-00029863-0000.root"
+  const char* inputFile = "/sphenix/lustre01/sphnxpro/commissioning/TPOT/junk/TPOT_ebdc39_junk-00034567-0000.evt",
+  const char* evaluationFile = "MicromegasRawDataEvaluation-00034567-0000.root"
   )
 {
   // print inputs
@@ -78,6 +78,17 @@ int Fun4All_ReadRawData(
     micromegasRawDataEvaluation->Verbosity(1);
     micromegasRawDataEvaluation->set_evaluation_outputfile(evaluationFile);
     se->registerSubsystem( micromegasRawDataEvaluation );
+  }
+
+  if( true )
+  {
+    // raw data calibration, to generate pedestal and rms, needed for offline zero-suppression
+    const std::string calibrationFile = "TPOT_Pedestal_000-new.root";
+    auto micromegasRawDataCalibration = new MicromegasRawDataCalibration;
+    micromegasRawDataCalibration->set_calibration_file(calibrationFile);
+    micromegasRawDataCalibration->set_sample_min(0);
+    micromegasRawDataCalibration->set_sample_max(20);
+    se->registerSubsystem( micromegasRawDataCalibration );
   }
 
   // input manager

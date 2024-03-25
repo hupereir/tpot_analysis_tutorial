@@ -130,7 +130,6 @@ void CreateHotChannelMap(int runNumber = 34567)
 
       // generate hitset key from layer, tile and segmentation. This allows to retrieve the detector name from the Mapping
       const auto hitsetkey = MicromegasDefs::genHitSetKey(layer, segmentation, itile );
-      const auto feeid = mapping.get_fee_id_from_hitsetkey( hitsetkey );
       const auto name = mapping.get_detname_sphenix_from_hitsetkey( hitsetkey );
 
       const auto hname = Form( "h_%i_%i", ilayer, itile );

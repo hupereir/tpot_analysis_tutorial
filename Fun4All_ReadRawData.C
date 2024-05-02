@@ -22,7 +22,6 @@
 
 R__LOAD_LIBRARY(libfun4all.so)
 R__LOAD_LIBRARY(libfun4allraw.so)
-R__LOAD_LIBRARY(libqa_modules.so)
 
 R__LOAD_LIBRARY(libmicromegas.so)
 R__LOAD_LIBRARY(libTrackingDiagnostics.so)
@@ -30,8 +29,8 @@ R__LOAD_LIBRARY(libTrackingDiagnostics.so)
 //____________________________________________________________________
 int Fun4All_ReadRawData(
   int nEvents = 500,
-  const char* inputFile = "/sphenix/lustre01/sphnxpro/commissioning/TPOT/junk/TPOT_ebdc39_junk-00034567-0000.evt",
-  const char* evaluationFile = "MicromegasRawDataEvaluation-00034567-0000.root"
+  const char* inputFile = "LUSTRE/junk/TPOT_ebdc39_junk-00041201-0000.evt",
+  const char* evaluationFile = "MicromegasRawDataEvaluation-00041201-0000.root"
   )
 {
   // print inputs
